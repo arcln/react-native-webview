@@ -543,6 +543,17 @@ export interface IOSWebViewProps extends WebViewSharedProps {
   keyboardDisplayRequiresUserAction?: boolean;
 
   /**
+   * A Boolean value indicating whether the iOS dark keyboard should be used.
+   *
+   * Settings this to true will force the iOS keyboard to use the native dark appearance.
+   * Does nothing on Android.
+   *
+   * The default value is `false`.
+   * @platform ios
+   */
+  forceDarkKeyboardAppearance?: boolean;
+
+  /**
    * A String value that indicates which URLs the WebView's file can then
    * reference in scripts, AJAX requests, and CSS imports. This is only used
    * for WebViews that are loaded with a source.uri set to a `'file://'` URL.

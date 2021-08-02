@@ -185,6 +185,11 @@ static NSDictionary* customCertificatesForHost;
 
   }
 #endif // !TARGET_OS_OSX
+
+  if ([self forceDarkKeyboardAppearance]) {
+    [self setKeyboardAppearanceDark];
+  }
+
   return self;
 }
 
@@ -692,6 +697,24 @@ static NSDictionary* customCertificatesForHost;
     }
 
     object_setClass(subview, newClass);
+}
+
+- (void)setKeyboardAppearanceDark
+{
+  IMP overrideKeyboardAppearanceImpl = imp_implementationWithBlock(^(id _) {
+    return UIKeyboardAppearanceDark;
+  });
+
+  for (NSString* className in @[@"WKContentView", @"UITextInputTraits"]) {
+    Class class = NSClassFromString(className);
+    Method method = class_getInstanceMethod(class, @selector(keyboardAppearance));
+
+    if (method != NULL) {
+      method_setImplementation(method, overrideKeyboardAppearanceImpl);
+    } else {
+      class_addMethod(class, @selector(keyboardAppearance), overrideKeyboardAppearanceImpl, "l@:");
+    }
+  }
 }
 
 // UIScrollViewDelegate method

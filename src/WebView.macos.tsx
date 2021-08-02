@@ -269,6 +269,7 @@ class WebView extends React.Component<MacOSWebViewProps, State> {
   }
 
   render() {
+    console.log('render macos webview')
     const {
       nativeConfig = {},
       onMessage,
