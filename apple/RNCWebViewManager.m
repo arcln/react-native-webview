@@ -41,19 +41,13 @@ RCT_EXPORT_MODULE()
 {
   RNCWebView *webView = [RNCWebView new];
   webView.delegate = self;
-
-  NSLog(@" %s", [view forceDarkKeyboardAppearance] ? "true" : "false");
-  if ([view forceDarkKeyboardAppearance]) {
-    [self setKeyboardAppearanceDark];
-  }
-
   return webView;
 }
 
-- (void)setKeyboardAppearanceDark
+- (void)setKeyboardAppearance: (BOOL)dark
 {
   IMP overrideKeyboardAppearanceImpl = imp_implementationWithBlock(^(id _) {
-    return UIKeyboardAppearanceDark;
+    return dark ? UIKeyboardAppearanceDark : UIKeyboardAppearanceLight;
   });
 
   for (NSString* className in @[@"WKContentView", @"UITextInputTraits"]) {
@@ -183,7 +177,7 @@ RCT_CUSTOM_VIEW_PROPERTY(keyboardDisplayRequiresUserAction, BOOL, RNCWebView) {
 }
 
 RCT_CUSTOM_VIEW_PROPERTY(forceDarkKeyboardAppearance, BOOL, RNCWebView) {
-  view.forceDarkKeyboardAppearance = json == nil ? false : [RCTConvert BOOL: json];
+  [self setKeyboardAppearance:(json == nil ? false : [RCTConvert BOOL: json])];
 }
 
 RCT_EXPORT_METHOD(injectJavaScript:(nonnull NSNumber *)reactTag script:(NSString *)script)
