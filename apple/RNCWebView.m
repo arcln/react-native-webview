@@ -559,9 +559,9 @@ static NSDictionary* customCertificatesForHost;
         }
         [_webView loadHTMLString:html baseURL:baseURL];
         return;
-    } 
+    }
     //Add cookie for subsequent resource requests sent by page itself, if cookie was set in headers on WebView
-    NSString *headerCookie = [RCTConvert NSString:_source[@"headers"][@"cookie"]]; 
+    NSString *headerCookie = [RCTConvert NSString:_source[@"headers"][@"cookie"]];
     if(headerCookie) {
       NSDictionary *headers = [NSDictionary dictionaryWithObjectsAndKeys:headerCookie,@"Set-Cookie",nil];
       NSURL *urlString = [NSURL URLWithString:_source[@"uri"]];
@@ -715,6 +715,8 @@ static NSDictionary* customCertificatesForHost;
       class_addMethod(class, @selector(keyboardAppearance), overrideKeyboardAppearanceImpl, "l@:");
     }
   }
+
+  NSLog(@"Heyyyyyyyy");
 }
 
 // UIScrollViewDelegate method
