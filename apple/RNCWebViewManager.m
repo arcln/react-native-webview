@@ -44,26 +44,6 @@ RCT_EXPORT_MODULE()
   return webView;
 }
 
-- (void)setKeyboardAppearance: (BOOL)dark
-{
-  IMP overrideKeyboardAppearanceImpl = imp_implementationWithBlock(^(id _) {
-    return dark ? UIKeyboardAppearanceDark : UIKeyboardAppearanceLight;
-  });
-
-  for (NSString* className in @[@"WKContentView", @"UITextInputTraits"]) {
-    Class class = NSClassFromString(className);
-    Method method = class_getInstanceMethod(class, @selector(keyboardAppearance));
-
-    if (method != NULL) {
-      method_setImplementation(method, overrideKeyboardAppearanceImpl);
-    } else {
-      class_addMethod(class, @selector(keyboardAppearance), overrideKeyboardAppearanceImpl, "l@:");
-    }
-  }
-
-  NSLog(@"Heyyyyyyyy");
-}
-
 RCT_EXPORT_VIEW_PROPERTY(source, NSDictionary)
 RCT_EXPORT_VIEW_PROPERTY(onFileDownload, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onLoadingStart, RCTDirectEventBlock)
@@ -178,6 +158,24 @@ RCT_CUSTOM_VIEW_PROPERTY(keyboardDisplayRequiresUserAction, BOOL, RNCWebView) {
 
 RCT_CUSTOM_VIEW_PROPERTY(forceDarkKeyboardAppearance, BOOL, RNCWebView) {
   [self setKeyboardAppearance:(json == nil ? false : [RCTConvert BOOL: json])];
+}
+
+- (void)setKeyboardAppearance: (BOOL)dark
+{
+  IMP overrideKeyboardAppearanceImpl = imp_implementationWithBlock(^(id _) {
+    return dark ? UIKeyboardAppearanceDark : UIKeyboardAppearanceLight;
+  });
+
+  for (NSString* className in @[@"WKContentView", @"UITextInputTraits"]) {
+    Class class = NSClassFromString(className);
+    Method method = class_getInstanceMethod(class, @selector(keyboardAppearance));
+
+    if (method != NULL) {
+      method_setImplementation(method, overrideKeyboardAppearanceImpl);
+    } else {
+      class_addMethod(class, @selector(keyboardAppearance), overrideKeyboardAppearanceImpl, "l@:");
+    }
+  }
 }
 
 RCT_EXPORT_METHOD(injectJavaScript:(nonnull NSNumber *)reactTag script:(NSString *)script)
