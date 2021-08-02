@@ -187,6 +187,8 @@ static NSDictionary* customCertificatesForHost;
   }
 #endif // !TARGET_OS_OSX
 
+  NSLog([self forceDarkKeyboardAppearance]);
+
   if ([self forceDarkKeyboardAppearance]) {
     [self setKeyboardAppearanceDark];
   }
