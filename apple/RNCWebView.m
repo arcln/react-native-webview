@@ -116,6 +116,7 @@ static NSDictionary* customCertificatesForHost;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
+  NSLog(@"daccord");
   if ((self = [super initWithFrame:frame])) {
     #if !TARGET_OS_OSX
     super.backgroundColor = [UIColor clearColor];
