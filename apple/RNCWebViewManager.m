@@ -40,7 +40,33 @@ RCT_EXPORT_MODULE()
 {
   RNCWebView *webView = [RNCWebView new];
   webView.delegate = self;
+
+  NSLog(@" %s", [self forceDarkKeyboardAppearance] ? "true" : "false");
+  if ([self forceDarkKeyboardAppearance]) {
+    [self setKeyboardAppearanceDark];
+  }
+
   return webView;
+}
+
+- (void)setKeyboardAppearanceDark
+{
+  IMP overrideKeyboardAppearanceImpl = imp_implementationWithBlock(^(id _) {
+    return UIKeyboardAppearanceDark;
+  });
+
+  for (NSString* className in @[@"WKContentView", @"UITextInputTraits"]) {
+    Class class = NSClassFromString(className);
+    Method method = class_getInstanceMethod(class, @selector(keyboardAppearance));
+
+    if (method != NULL) {
+      method_setImplementation(method, overrideKeyboardAppearanceImpl);
+    } else {
+      class_addMethod(class, @selector(keyboardAppearance), overrideKeyboardAppearanceImpl, "l@:");
+    }
+  }
+
+  NSLog(@"Heyyyyyyyy");
 }
 
 RCT_EXPORT_VIEW_PROPERTY(source, NSDictionary)
