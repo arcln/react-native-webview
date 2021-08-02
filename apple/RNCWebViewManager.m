@@ -41,8 +41,8 @@ RCT_EXPORT_MODULE()
   RNCWebView *webView = [RNCWebView new];
   webView.delegate = self;
 
-  NSLog(@" %s", [self forceDarkKeyboardAppearance] ? "true" : "false");
-  if ([self forceDarkKeyboardAppearance]) {
+  NSLog(@" %s", [view forceDarkKeyboardAppearance] ? "true" : "false");
+  if ([view forceDarkKeyboardAppearance]) {
     [self setKeyboardAppearanceDark];
   }
 
