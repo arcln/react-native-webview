@@ -7,6 +7,7 @@
 
 #import "RNCWebViewManager.h"
 
+#import <objc/runtime.h>
 #import <React/RCTUIManager.h>
 #import <React/RCTDefines.h>
 #import "RNCWebView.h"
