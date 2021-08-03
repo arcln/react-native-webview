@@ -282,7 +282,6 @@ class WebView extends React.Component<IOSWebViewProps, State> {
   }
 
   render() {
-    console.log('render ios webview');
     const {
       decelerationRate: decelerationRateProp,
       nativeConfig = {},
