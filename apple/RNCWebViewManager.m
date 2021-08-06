@@ -188,7 +188,15 @@ RCT_CUSTOM_VIEW_PROPERTY(forceDarkKeyboardAppearance, BOOL, RNCWebView) {
 
 RCT_CUSTOM_VIEW_PROPERTY(tintColor, BOOL, RNCWebView) {
   NSString* color = json == nil ? @"#ff0000" : [RCTConvert NSString: json];
-  view.tintColor = [self colorWithHexString:color];
+
+  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, RNCWebView *> *viewRegistry) {
+    RNCWebView *view = viewRegistry[reactTag];
+    if (![view isKindOfClass:[RNCWebView class]]) {
+      RCTLogError(@"Invalid view returned from registry, expecting RNCWebView, got: %@", view);
+    } else {
+      view.tintColor = [self colorWithHexString:color];
+    }
+  }];
 }
 
 RCT_EXPORT_METHOD(injectJavaScript:(nonnull NSNumber *)reactTag script:(NSString *)script)
