@@ -309,7 +309,7 @@ static NSDictionary* customCertificatesForHost;
         [self addPullToRefreshControl];
     }
 
-    _webView.tintColor = [self colorWithHexString:_tintColor]
+    _webView.tintColor = [self colorWithHexString:_tintColor];
     _webView.scrollView.scrollEnabled = _scrollEnabled;
     _webView.scrollView.pagingEnabled = _pagingEnabled;
       //For UIRefreshControl to work correctly, the bounces should always be true
