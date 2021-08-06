@@ -371,7 +371,7 @@ export interface IOSWebViewProps extends WebViewSharedProps {
    */
   bounces?: boolean;
 
-  tintColor?: boolean;
+  tintColor?: string;
 
   /**
    * A floating-point number that determines how quickly the scroll view
