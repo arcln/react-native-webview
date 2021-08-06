@@ -57,6 +57,7 @@
 @property (nonatomic, assign) BOOL useSharedProcessPool;
 @property (nonatomic, copy) NSString * _Nullable userAgent;
 @property (nonatomic, copy) NSString * _Nullable applicationNameForUserAgent;
+@property (nonatomic, copy) NSString * _Nullable tintColor;
 @property (nonatomic, assign) BOOL cacheEnabled;
 @property (nonatomic, assign) BOOL javaScriptEnabled;
 @property (nonatomic, assign) BOOL javaScriptCanOpenWindowsAutomatically;

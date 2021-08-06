@@ -280,6 +280,14 @@ static NSDictionary* customCertificatesForHost;
   return wkWebViewConfig;
 }
 
+- (UIColor *)colorWithHexString:(NSString *)str{
+    int red = 0;
+    int green = 0;
+    int blue = 0;
+    sscanf([str UTF8String], "#%02X%02X%02X", &red, &green, &blue);
+    return [UIColor colorWithRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1];
+}
+
 - (void)didMoveToWindow
 {
   if (self.window != nil && _webView == nil) {
@@ -300,6 +308,8 @@ static NSDictionary* customCertificatesForHost;
     if (_pullToRefreshEnabled) {
         [self addPullToRefreshControl];
     }
+
+    _webView.tintColor = [self colorWithHexString:_tintColor]
     _webView.scrollView.scrollEnabled = _scrollEnabled;
     _webView.scrollView.pagingEnabled = _pagingEnabled;
       //For UIRefreshControl to work correctly, the bounces should always be true
