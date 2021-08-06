@@ -291,8 +291,6 @@ static NSDictionary* customCertificatesForHost;
 #endif // !TARGET_OS_OSX
 
     [self setBackgroundColor: _savedBackgroundColor];
-    _webView.tintColor = [UIColor colorWithRed: 210.0f/255.0f green:170.0f/255.0f blue:40.0f/255.0f alpha:1.0f];
-
 #if !TARGET_OS_OSX
     _webView.scrollView.delegate = self;
 #endif // !TARGET_OS_OSX
