@@ -178,6 +178,19 @@ RCT_CUSTOM_VIEW_PROPERTY(forceDarkKeyboardAppearance, BOOL, RNCWebView) {
   }
 }
 
+- (UIColor *)colorWithHexString:(NSString *)str{
+    int red = 0;
+    int green = 0;
+    int blue = 0;
+    sscanf([str UTF8String], "#%02X%02X%02X", &red, &green, &blue);
+    return [UIColor colorWithRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1];
+}
+
+RCT_CUSTOM_VIEW_PROPERTY(tintColor, BOOL, RNCWebView) {
+  NSString* color = json == nil ? @"#ff0000" : [RCTConvert NSString: json];
+  view.tintColor = [self colorWithHexString:color];
+}
+
 RCT_EXPORT_METHOD(injectJavaScript:(nonnull NSNumber *)reactTag script:(NSString *)script)
 {
   [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, RNCWebView *> *viewRegistry) {
